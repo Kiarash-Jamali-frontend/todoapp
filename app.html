@@ -21,11 +21,11 @@
 <body class="d-flex align-items-center justify-content-center" id="particles-js">
 
     <div class="rounded-5 shadow container my-auto todo-app p-4 pt-3" id="appContent">
-        <header class="row row-cols-2 justify-content-between align-items-center p-3 rounded-5 shadow-lg">
+        <header class="row row-cols-3 justify-content-between align-items-center p-3 rounded-5 shadow-lg">
             <!--User name-->
             <div class="d-flex align-items-center">
                 <!--User avatar-->
-                <div id="userAvatar" class="bg-success d-flex 
+                <div id="userAvatar" class="bg-danger d-flex 
                 align-items-center justify-content-center text-center
                  rounded-circle text-light fw-bold h5 shadow">
 
@@ -34,6 +34,25 @@
                 <!--User name-->
                 <div id="userName" class="ms-3 fw-bold h6 mb-0">
 
+                </div>
+            </div>
+            
+            <!--Status bar-->
+            <div class="status-bar rounded-pill shadow p-2 px-3 d-flex justify-content-between align-items-center">
+                <!--Tasks number-->
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-list-task d-flex align-items-center mt-1 me-1"></i>
+                    <span id="taskNumber" class="fw-bold">
+
+                    </span>
+                </div>
+
+                <!--Battry-->
+                <div>
+                    <i id="batteryChargeIcon"></i>
+                    <span id="batteryCharge">
+
+                    </span>
                 </div>
             </div>
 

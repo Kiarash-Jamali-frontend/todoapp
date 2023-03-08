@@ -6,7 +6,7 @@
 
 body {
     height: 100vh !important;
-    background: linear-gradient(130deg, rgba(93, 18, 184, 0.72), #1c15e8b5);
+    background: linear-gradient(160deg, rgba(93, 18, 184, 0.72), #1c15e8b5);
 }
 
 body canvas {
@@ -49,6 +49,12 @@ header {
 
 /*Todo Item*/
 .todo {
+    background: #ffffff4c;
+    backdrop-filter: blur(2px);
+}
+
+/*Status bar*/
+.status-bar {
     background: #ffffff4c;
     backdrop-filter: blur(2px);
 }

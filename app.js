@@ -20,6 +20,9 @@ const taskDescriptionInput = document.getElementById("taskDescriptionInput");
 const createTaskButton = document.getElementById("createTaskButton");
 const taskList = document.getElementById("taskList");
 const clearAllTasksButton = document.getElementById("clearAllTasksButton");
+const batteryCharge = document.getElementById("batteryCharge");
+const taskNumber = document.getElementById("taskNumber");
+const batteryChargeIcon = document.getElementById("batteryChargeIcon");
 
 // Remove all tasks
 function removeAllTasks() {
@@ -43,6 +46,8 @@ function removeAllTasks() {
                 taskList.innerHTML = "";
                 // Clear LocalStorage
                 localStorage.setItem("tasks", JSON.stringify([]));
+                // Reload page
+                window.location.reload();
             })
         }
     })
@@ -70,8 +75,8 @@ function createTaskElement(title, description) {
     removeTaskButton.classList.add("bi", "bi-trash", "text-danger");
 
     removeTaskButton.addEventListener("click", event => {
-        removeTask(event, title);
         removeTaskFromLocalStorage(taskTitle.innerText);
+        removeTask(event, title);
     })
 
     // Description
@@ -101,6 +106,10 @@ function saveTaskInLocalStorage(title, description) {
         text: `Task title: ${title}`,
         icon: "success",
         confirmButtonText: "Close this window"
+    }).then(res => {
+        if (res.isConfirmed) {
+            window.location.reload();
+        }
     })
 }
 
@@ -134,8 +143,10 @@ function removeTask(element, title) {
     }).then(res => {
         if (res.isConfirmed) {
             element.target.parentElement.parentElement.parentElement.remove();
+
+            window.location.reload();
         }
-    })
+    });
 }
 
 // Check task values
@@ -204,8 +215,28 @@ function events() {
 
 events();
 
+// Task number
+taskNumber.innerHTML = `Tasks number: ${JSON.parse(localStorage.getItem("tasks")).length}`
 
 // User avatar
 userAvatar.innerHTML = userData.charAt(0);
+
 // User name
-userName.innerHTML = `Welcome <span class="bg-danger text-light rounded-2 px-2 py-1">${userData}</span>`;
+userName.innerHTML = `Hello <span class="bg-success text-light shadow rounded-2 px-2 py-1">${userData}</span>`;
+
+// batteryCharge
+setInterval(() => {
+    let batteryChargeStatus = navigator.getBattery().then(res => {
+
+        batteryCharge.innerHTML = res.level * 100 + " %"
+
+        // Status icon
+        if (res.charging) {
+            batteryChargeIcon.className = "bi bi-battery-charging";
+        } else if (!res.charging && res.level >= .85) {
+            batteryChargeIcon.className = "bi bi-battery-full";
+        } else {
+            batteryChargeIcon.className = "bi bi-battery-half";
+        }
+    });
+}, 1000)
